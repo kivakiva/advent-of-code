@@ -10,7 +10,7 @@ const fs = require('fs')
 let dataArray = [];
 let inputRegex = /\w+/g;
 
-fs.readFile('01-input.txt', 'utf-8', (err, data) => {
+fs.readFile('./data/01-input.txt', 'utf-8', (err, data) => {
     if (err) throw err;
   
     // Converting Raw Buffer to text
