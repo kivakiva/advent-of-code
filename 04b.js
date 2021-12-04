@@ -79,7 +79,6 @@ fs.readFile('./data/04-cards-input.txt', 'utf-8', (err, data) => {
   const totalBoards = markupArray.length;
   let boardWins = 0;
   let hasBoardWon = markupArray.map(a => false);
-  console.log(hasBoardWon);
 
   //loop
 
@@ -100,10 +99,16 @@ fs.readFile('./data/04-cards-input.txt', 'utf-8', (err, data) => {
           //check for winner and calculate score
 
           if (verticalWin(markupArray, i, j, k) || horizontalWin(markupArray, i, j, k)) {
+
+            //only add win if the board has not won
+
             if (!hasBoardWon[i]) {
               hasBoardWon[i] = true;
               boardWins ++;
               console.log(`winner number ${boardWins} at board ${i}:  `, markupArray[i]);
+
+              //only exit if this is the last board
+
               if (boardWins === totalBoards) {
                 console.log('Supporting evidence that all boards have won:  ', markupArray.slice(0, 10));
                 console.log('Last to win!: ', markupArray[i])
@@ -119,6 +124,5 @@ fs.readFile('./data/04-cards-input.txt', 'utf-8', (err, data) => {
       }
     }
   }
-
 })
 });
