@@ -12,7 +12,12 @@ logic:
 ---multiply by ball at cumulative loop index 
 
 Part 2:
+find the last board to win
 logic for 4b:
+-count total boards
+-track board wins
+--only register a win once per board
+-only report winning board if board wins is equal to total boards
 
 */
 
@@ -47,16 +52,12 @@ fs.readFile('./data/04-cards-input.txt', 'utf-8', (err, data) => {
   
   const verticalWin = (arr, i, j, k) => {
     if (arr[i].every(a => a[k] === 'w')) {
-      console.log('Vertical winner!: ', arr[i])
-      console.log('Original:  ', cleanCardArray[i])
       return true;
     } return false;
   };
 
   const horizontalWin = (arr, i, j, k) => {
     if (arr[i][j].every(a => a === 'w')) {
-      console.log('Horizontal winner!: ', arr[i])
-      console.log('Original:  ', cleanCardArray[i])
       return true;
     } return false;
   }
@@ -73,6 +74,12 @@ fs.readFile('./data/04-cards-input.txt', 'utf-8', (err, data) => {
         }, 0))
     }, 0)
   }
+
+  //define board counts
+  const totalBoards = markupArray.length;
+  let boardWins = 0;
+  let hasBoardWon = markupArray.map(a => false);
+  console.log(hasBoardWon);
 
   //loop
 
@@ -93,10 +100,20 @@ fs.readFile('./data/04-cards-input.txt', 'utf-8', (err, data) => {
           //check for winner and calculate score
 
           if (verticalWin(markupArray, i, j, k) || horizontalWin(markupArray, i, j, k)) {
-            console.log('card sum:  ', cardSum(markupArray, i));
-            console.log('current ball:  ', currentBall);
-            console.log('final score:   ', cardSum(markupArray, i) * currentBall);
-            return;
+            if (!hasBoardWon[i]) {
+              hasBoardWon[i] = true;
+              boardWins ++;
+              console.log(`winner number ${boardWins} at board ${i}:  `, markupArray[i]);
+              if (boardWins === totalBoards) {
+                console.log('Supporting evidence that all boards have won:  ', markupArray.slice(0, 10));
+                console.log('Last to win!: ', markupArray[i])
+                console.log('Original:  ', cleanCardArray[i])
+                console.log('card sum:  ', cardSum(markupArray, i));
+                console.log('current ball:  ', currentBall);
+                console.log('final score:   ', cardSum(markupArray, i) * currentBall);
+                return;
+              }
+            }
           }
         }
       }
