@@ -34,5 +34,3 @@ fs.readFile('./data/03-input.txt', 'utf-8', (err, data) => {
 
 
 });
-
-/* 4095 is sum which is too low, but you need product */

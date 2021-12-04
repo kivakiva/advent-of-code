@@ -7,35 +7,23 @@ const fs = require('fs')
 fs.readFile('./data/02-input.txt', 'utf-8', (err, data) => {
   if (err) throw err;
 
-
-  let dataArray = data.split("");
-  console.log(dataArray);
-
-
-
-
-
-
   
-  // const regexForward = /(?<=forward )\d+/g;
-  // let forwardArray = data.match(regexForward);
-  // forwardArray = forwardArray.map(a => Number.parseInt(a));
-  // const horizontal = forwardArray.reduce((sum, a) => {
-  //   return (sum + a);
-  // });
-  // const regexdown = /(?<=down )\d+/g;
-  // const downArray = data.match(regexdown);
-  // const regexup = /(?<=up )\d+/g;
-  // let upArray = data.match(regexup);
-  // upArray = upArray.map(a => `-${a}`);
-  // let vertArray = downArray.concat(upArray);
-  // vertArray = vertArray.map(a => Number.parseInt(a));
-  // const vert = vertArray.reduce((sum, a) => {
-  //   return (sum + a);
-  // })
+  const regexForward = /(?<=forward )\d+/g;
+  let forwardArray = data.match(regexForward);
+  forwardArray = forwardArray.map(a => Number.parseInt(a));
+  const horizontal = forwardArray.reduce((sum, a) => {
+    return (sum + a);
+  });
+  const regexdown = /(?<=down )\d+/g;
+  const downArray = data.match(regexdown);
+  const regexup = /(?<=up )\d+/g;
+  let upArray = data.match(regexup);
+  upArray = upArray.map(a => `-${a}`);
+  let vertArray = downArray.concat(upArray);
+  vertArray = vertArray.map(a => Number.parseInt(a));
+  const vert = vertArray.reduce((sum, a) => {
+    return (sum + a);
+  })
   
 });
 
-// let re = /quick\s(brown).+?(jumps)/igd;
-// let result = re.exec('The Quick Brown Fox Jumps Over The Lazy Dog');
-// console.log(result)
