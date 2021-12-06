@@ -25,17 +25,9 @@ fs.readFile('./data/06-input.txt', 'utf-8', (err, data) => {
   }
 
   for (let fish of dataArray) {
+      console.log(totalFish)
       totalFish += fishDay(days, fish)
     }
-
-    // dataArray = dataArray.map((a, index, array) => {
-    //   if (a === 0) {
-    //     array = array.push(8);
-    //     return 6
-    //   } return (a - 1)
-    // })
-    // console.log(dataArray)
-  // console.log(dataArray);
 
 
   console.log(totalFish);
