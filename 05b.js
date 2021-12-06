@@ -116,6 +116,9 @@ fs.readFile('./data/05-input.txt', 'utf-8', (err, data) => {
       }
     }
 
+    //could just refactor to find the slope and then increment y up or down
+    //always starating with x1 and y1
+
     if (isDiagonal(line)) {
       let minY = 0;
       let maxY = 0;
