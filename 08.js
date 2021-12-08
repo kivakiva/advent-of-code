@@ -21,8 +21,6 @@ data
 .filter(a => {
  return a.length === 2 || a.length === 4 || a.length === 3 || a.length === 7
 }).length
-// .map(a => Number.parseInt(a))
-// .sort();
 
 
 

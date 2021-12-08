@@ -76,8 +76,8 @@ for (let line in code) {
   const eight = decoder[line][8][0];
   const segmentEG = eight
   .split("")
+  .filter(a => !seven.includes(a))
   .filter(a => !four.includes(a))
-  .filter(a => !one.includes(a))
   
   const segmentEGMatch = (string) => {
     return string.includes(segmentEG[0]) && string.includes(segmentEG[1])
@@ -91,17 +91,57 @@ for (let line in code) {
   const five = decoder[line][5][0]
 
   decoder[line][3] = code[line].filter(a => a.length === 5 && a !== two && a !== five)
+
+  //sort alphabetically for matching later
+  Object.keys(decoder[line])
+  .forEach(k => decoder[line][k][0] =
+    decoder[line][k][0]
+    .split("")
+    .sort()
+    .join(""))
 }
-// .map(a => 
-//   a
-//   .slice(1, -1)
-//   .split(" "))
-// .flat()
-// .filter(a => {
-//  return a.length === 2 || a.length === 4 || a.length === 3 || a.length === 7
-// }).length
+
+// console.log(decoder)
+
+let dataArray = 
+data
+.split('\n')
+.map(a => a.split('|'))
+.flat()
+.filter(a => a.includes('\r'))
+.map(a => 
+  a
+  .slice(1, -1)
+  .split(" ")
+  .map(b => b
+    .split("")
+    .sort()
+    .join(""))
+  .join(" ")
+  )
+
+for (let i in dataArray) {
+  let line = dataArray[i]
+  // console.log(line, decoder[i])
+  dataArray[i] = dataArray[i].split(" ");
+  for (let [key, value] of Object.entries(decoder[i])) {
+    // console.log('value[0]: ',value[0], 'key: ', key)
+    // dataArray[i] = line.replace(value[0], key)
+    const match = value[0];
+    for (let j in dataArray[i]) {
+      let word = dataArray[i][j]
+      if (match === word) {
+        // console.log(match, word);
+        dataArray[i][j] = key;
+      }
+    }
+  }
+  dataArray[i] = Number.parseInt(dataArray[i].join(""));
+}
+
+
+console.log(dataArray)
+console.log('sum: ', dataArray.reduce((sum, a) => sum + a));
 
 
 
-
-console.log(decoder)
